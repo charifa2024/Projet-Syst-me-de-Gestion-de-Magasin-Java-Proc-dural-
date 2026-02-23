@@ -7,7 +7,20 @@ public class Produit {
     double prixProduit ;
     int quantiteStock ;
     static int nbProduits = 0;
-    static Produit[] produits = new Produit[10];
+    static public Produit[] produits = new Produit[10];
+
+
+
+    public void afficherInfoProduit(int indexProd){
+        System.out.println("Informations Produit : ");
+        System.out.println("Nom du produit : "+produits[indexProd].nomProduit);
+        System.out.println("Le prix unitaire : "+produits[indexProd].prixProduit+"dh");
+        System.out.println("La quantité dans le stock : "+produits[indexProd].quantiteStock);
+
+    }
+
+    public Produit(){
+    }
 
     public Produit(String nomProduit , double prixProduit , int quantiteInitiale  ){
         this.idProduit = count;
@@ -29,48 +42,48 @@ public class Produit {
 
 
 
-     static public void afficherMenu(){
+     public void afficherMenu(){
         System.out.println("Voici le Menu : ");
 
         for (int i=0 ; i<7 ; i++){
             System.out.println((i+1)+"_"+menu[i]);
         }
 
-         System.out.println(produits.length);
 
     }
 
 
-    static public int saisirEntier(){
+    public int saisirEntier(){
         afficherMenu();
         int option = 0;
         Scanner sc = new Scanner(System.in);
         do{
             System.out.println("Veuillez de choisir un nombre(1-7)!! :");
             option = sc.nextInt();
-        }while (option<1 ||option>7);
+        } while (option < 1 || option > 7);
         return option;
     }
-    static public void ajouterProduit(){
-         Scanner sc = new Scanner(System.in);
+    public void ajouterProduit() {
+        Scanner sc = new Scanner(System.in);
 
-         if(count >= produits.length){
-             System.out.println("Le tableau des produits est plein !!");
-         }else {
-             System.out.println("Veuillez d'entrer le nom du produit : ");
-             String nom = sc.nextLine();
-             System.out.println("Veuillez entrer le prix :");
+        if (nbProduits >= produits.length) {
+            System.out.println("Le tableau des produits est plein !!");
+        } else {
+            System.out.println("Veuillez d'entrer le nom du produit : ");
+            String nom = sc.nextLine();
+            System.out.println("Veuillez entrer le prix :");
+            double prix = sc.nextDouble();
+            System.out.println("Veuillez d'entrer la quantité initiale : ");
+            int quantity = sc.nextInt();
 
-             double prix = sc.nextDouble();
-             System.out.println("Veuillez d'entrer la quantité initiale : ");
-             int quantity = sc.nextInt();
 
-             new Produit(nomProduit = nom , prixProduit = prix , quantiteStock = quantity);
-             System.out.println("Le produit est ajouté !");
-         }
-
+            produits[nbProduits] = new Produit(nom, prix, quantity);
+            nbProduits++;
+            count++;
+            System.out.println("Le produit est ajouté !");
+        }
     }
-    static public void modifierProduit(){
+    public void modifierPrix(){
          Scanner sc = new Scanner(System.in);
         System.out.println("Veuillez d'entrer le nom de produit à modifier : ");
         String nom = sc.nextLine();
@@ -87,17 +100,17 @@ public class Produit {
         }
 
     }
-    static public int rechercherProduit(String nom){
+    public int rechercherProduit(String nom){
          int indexProd = -1;
          for (int i=0 ; i<produits.length ; i++){
-             if (produits[i].nomProduit == nom){
+             if (produits[i]!= null && produits[i].nomProduit.equals(nom)){
                  indexProd = i;
              }
 
          }
         return indexProd;
     }
-    void effectuerVente(){
+    public void effectuerVente(){
          Scanner sc = new Scanner(System.in);
         System.out.println("Veuillez d'entrer le nom du produits : ");
         String nom = sc.nextLine();
@@ -121,7 +134,7 @@ public class Produit {
 
     }
 
-    private void afficherTicket(String nom, int quantity, double prixProduit, double total) {
+    void afficherTicket(String nom, int quantity, double prixProduit, double total) {
         System.out.println("Ticket de caisse :");
         System.out.println("Le nom du produit : "+nom);
         System.out.println("La quantité : "+quantity);
@@ -129,22 +142,27 @@ public class Produit {
         System.out.println("Le Total : "+total+" dh");
     }
 
-    void afficherStock(){
-         for(Produit prod : produits){
-             System.out.println("");
-             System.out.println("Nom : "+prod.nomProduit+"\n"+"Prix :"+prod.prixProduit+"\n"+"QTE : "+prod.quantiteStock+"\n"+"Valeur Totale : "+(prod.quantiteStock*prod.prixProduit)+"\n");
-         }
-    }
-    void etatAlerte(){
-        System.out.println("Attention !! Produit a quantité presque nulle !! ");
-         for (Produit prod : produits){
-             if(prod.quantiteStock <= 5){
-                 System.out.println("Produit : "+prod.nomProduit);
-                 System.out.println("Quantité : "+prod.quantiteStock+"\n");
+    public void afficherStock(){
+        System.out.println("Voici les produits trouvés dans le stock :");
+
+         for(Produit prod : produits) {
+             if (prod != null) {
+                 System.out.println("Nom : " + prod.nomProduit + "\n" + "Prix :" + prod.prixProduit + "dh \n" + "QTE : " + prod.quantiteStock + "\n" + "Valeur Totale : " + (prod.quantiteStock * prod.prixProduit) + "dh\n");
              }
          }
     }
-    void sauvegarderStock(){}
+    public void etatAlerte(){
+        System.out.println("Attention !! Produit a quantité presque nulle !! ");
+         for (Produit prod : produits){
+             if(prod!=null) {
+                 if (prod.quantiteStock <= 5) {
+                     System.out.println("Produit : " + prod.nomProduit);
+                     System.out.println("Quantité : " + prod.quantiteStock + "\n");
+                 }
+             }
+         }
+    }
+    public void sauvegarderStock(){}
     void chargerStock(){}
 
 
