@@ -51,7 +51,7 @@ public class Produit {
         }while (option<1 ||option>7);
         return option;
     }
-    void ajouterProduit(){
+    static public void ajouterProduit(){
          Scanner sc = new Scanner(System.in);
 
          if(count >= produits.length){
@@ -60,7 +60,7 @@ public class Produit {
              System.out.println("Veuillez d'entrer le nom du produit : ");
              String nom = sc.nextLine();
              System.out.println("Veuillez entrer le prix :");
-             sc.nextLine();
+
              double prix = sc.nextDouble();
              System.out.println("Veuillez d'entrer la quantité initiale : ");
              int quantity = sc.nextInt();
@@ -70,7 +70,7 @@ public class Produit {
          }
 
     }
-    void modifierProduit(){
+    static public void modifierProduit(){
          Scanner sc = new Scanner(System.in);
         System.out.println("Veuillez d'entrer le nom de produit à modifier : ");
         String nom = sc.nextLine();
@@ -79,7 +79,7 @@ public class Produit {
             System.out.println("Le produit n'existe pas !!");
 
         }else {
-            sc.nextLine();
+
             System.out.println("Veuillez d'entrer le nouveau prix : ");
             double prix = sc.nextDouble();
             produits[index].prixProduit = prix;
@@ -87,7 +87,7 @@ public class Produit {
         }
 
     }
-    int rechercherProduit(String nom){
+    static public int rechercherProduit(String nom){
          int indexProd = -1;
          for (int i=0 ; i<produits.length ; i++){
              if (produits[i].nomProduit == nom){
@@ -101,7 +101,7 @@ public class Produit {
          Scanner sc = new Scanner(System.in);
         System.out.println("Veuillez d'entrer le nom du produits : ");
         String nom = sc.nextLine();
-        sc.nextLine();
+
         System.out.println("Veuillez d'entrer la qantité souhaité : ");
         int quantity = sc.nextInt();
 

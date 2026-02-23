@@ -8,6 +8,9 @@ public class Main {
         System.out.println("Projet : Système de Gestion de Magasin");
         int option= Produit.saisirEntier();
 
+        switch (option){
+            case 1 : Produit
+        }
 
 
 
