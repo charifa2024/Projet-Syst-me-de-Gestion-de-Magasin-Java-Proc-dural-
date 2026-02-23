@@ -1,5 +1,9 @@
 import java.util.Scanner;
-
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class Produit {
     static int count = 0;
     int idProduit ;// auto increment & unique
@@ -82,7 +86,9 @@ public class Produit {
             count++;
             System.out.println("Le produit est ajouté !");
         }
+
     }
+
     public void modifierPrix(){
          Scanner sc = new Scanner(System.in);
         System.out.println("Veuillez d'entrer le nom de produit à modifier : ");
@@ -162,9 +168,57 @@ public class Produit {
              }
          }
     }
-    public void sauvegarderStock(){}
-    void chargerStock(){}
 
+    public void sauvegarderStock() {
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter("stock.txt"));
+
+            for (int i = 0; i < nbProduits; i++) {
+                if (produits[i] != null) {
+                    writer.println(
+                            produits[i].nomProduit + ";" +
+                                    produits[i].prixProduit + ";" +
+                                    produits[i].quantiteStock
+                    );
+                }
+            }
+
+            writer.close();
+            System.out.println("Données sauvegardées !");
+        } catch (IOException e) {
+            System.out.println("Erreur données non sauvegardées !");
+        }
+    }
+
+    void chargerStock() {
+        try {
+            File file = new File("stock.txt");
+
+            if (!file.exists()) {
+                System.out.println("Aucun fichier trouvé!!");
+                return;
+            }
+
+            Scanner reader = new Scanner(file);
+
+            while (reader.hasNextLine()) {
+                String ligne = reader.nextLine();
+                String[] parts = ligne.split(";");
+
+                String nom = parts[0];
+                double prix = Double.parseDouble(parts[1]);
+                int quantite = Integer.parseInt(parts[2]);
+
+                produits[nbProduits] = new Produit(nom, prix, quantite);
+                nbProduits++;
+            }
+
+            reader.close();
+            System.out.println("Stock chargé !");
+        } catch (FileNotFoundException e) {
+            System.out.println("Erreur stck non chargé !");
+        }
+    }
 
 
 

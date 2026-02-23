@@ -1,0 +1,4 @@
+Laptop;4500.0;8
+Souris;150.0;3
+Clavier;250.0;8
+msemen;2.0;3
